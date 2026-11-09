@@ -130,9 +130,13 @@ Your final score will help determine the outcome of your mission.
 Choose carefully, Engineer. The survival of Ares Colony is in your hands.\n
 """)
 # the user choses the dificulty which only affects the initial stats of health, oxygen, and score
-difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper()
+difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper() 
+print("\n")
+while difficulty not in ("A", "B", "C"):
+      print("Invalid difficulty. Please choose A, B, or C ")
+      difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper()  
 #Now show the user the initial stats of Health, Colony Oxygen levels, and the score.
-print(f"{userName} your stats are as follows\n")
+print(f"\n{userName} your stats are as follows\n")
 health, oxygen, score = difficulty_stats(health, oxygen, score)
 display_statistics(health, oxygen, score)
 input("Press Enter to continue...")
@@ -172,6 +176,9 @@ C. Immediately restart the main reactor.
 Attempt to restore full power without first investigating what caused the shutdown.""")
 # the user makes a choice input is saved and new stats are calculated and results are shown
 controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
+while controlRoomChoice not in ("A", "B", "C"):
+        print("Invalid choice. Please choose A, B, or C ")
+        controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
 input("\n Press Enter to continue")
 print("_" * 80)
 if controlRoomChoice == "A":
