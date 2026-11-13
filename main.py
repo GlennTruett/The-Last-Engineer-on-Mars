@@ -129,10 +129,7 @@ def display_title():
  #prints the title of the Game
     print("THE LAST ENGINEER ON MARS\n")
 # Display the title of the adventure sim
-
 display_title()
-
-
 # Lets print out the introduction to the sim
 # I will be using \n to create new lines
 def display_introduction():
@@ -196,7 +193,6 @@ def gameInstructions():
     Choose carefully, Engineer. The survival of Ares Colony is in your hands.\n
     """)
 gameInstructions()
-        
 # the user choses the dificulty which only affects the initial stats of health, oxygen, and score
 difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper() 
 print("\n")
