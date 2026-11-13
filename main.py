@@ -17,7 +17,7 @@ hscore = 0
 # creating a current location variable
 currentLocation = "Main Control Room"
 
-
+# These are the dictionaries for the rooms in the game
 controlRoom = {
         "name": "Main Control Room",
         "description": "The colony's central command center. Emergency lights illuminate rows of monitoring equipment. \n"
@@ -120,81 +120,83 @@ def display_statistics(health, oxygen, score):
     print(f"Oxygen: {oxygen}%")
     print(f"Score {score}")   
 # Create an adventure sim
-# First Let's display the title of the sim
-print("  \n\n    ")
-print("============================================================")
-print("          Let The Adventure Begin                          ")
-print("============================================================\n\n")
+#  First Let's display the title of the sim
+def display_title():
+    print("  \n\n    ")
+    print("============================================================")
+    print("          Let The Adventure Begin                          ")
+    print("============================================================\n\n")
+ #prints the title of the Game
+    print("THE LAST ENGINEER ON MARS\n")
+# Display the title of the adventure sim
 
-#prints the title of the Game
-print("THE LAST ENGINEER ON MARS\n")
+display_title()
+
+
 # Lets print out the introduction to the sim
 # I will be using \n to create new lines
-print("Introduction: The Red Silence \n\n")
-print("Mars — Sol 247, 03:17 Colony Time \n")
-# The user will now be asked for their name and it will be stored as the variable userName
-userName = input("What is your name?").strip()
-print (f"\n Welcome to Mars, {userName}.")
-# the user will have to press enter to continue this makes for a better user experience
-input("\nPress Enter To continue...")
-print("_" * 80)
-print("""You awaken to the sound of an emergency alarm.
-Red lights flash across your sleeping quarters. The ventilation fans have stopped, and the familiar hum of the
-colony's life-support equipment is gone.\n\n """)
-input("\n Press Enter to continue...")
-print("_" * 80)
-print(f"{userName}, you are the chief engineer of Ares Colony, humanity's first permanent settlement on Mars. The other six")
-print("colonists departed three days ago on a geological expedition to a nearby canyon. You stayed behind to")
-print("maintain the colony's equipment.\n\n")
-input("\n Press Enter to continue...")
-print("_" * 80)
-print("Now something has gone terribly wrong.")
-print("The colony's central computer displays a terrifying message:\n\n")
-input("\n Press Enter to continue...")
-print("_" * 80)
-print("\n\n")
-print("ARES COLONY--CRITICAL SYSTEM FAILURE\n")
-print("MAIN POWER: OFFLINE\n")
-print("BACKUP POWER: 18%\n")
-print("OXYGEN GENERATION: OFFLINE\n")
-print("COMMUNICATIONS: OFFLINE\n")
-print("COLONY AI: UNRESPONSIVE\n")
-print("CREW STATUS: UNKNOWN\n")
-input("\n Press Enter to continue...")
-print("_" * 80)
-print("\n\n")
-# A final message appears on the screen:
-print("WARNING: Multiple system failures detected. Cause unknown. Estimated survival time: 6 hours.\n")
-input("\n Press Enter to continue")
-print("_" * 80)
-#now let's print out many lines of text with only one print statement.
-print("""You grab your engineering toolkit and look toward the darkened corridor. 
-You are alone. 
-There is no rescue coming unless you can restore communications. 
-You are the last engineer on Mars. 
-And the colony's survival depends on what you do next. 
-""")
+def display_introduction():
+    print("Introduction: The Red Silence \n\n")
+    print("Mars — Sol 247, 03:17 Colony Time \n")
+    # The user will now be asked for their name and it will be stored as the variable userName
+    userName = input("What is your name?").strip()
+    print (f"\n Welcome to Mars, {userName}.")
+    # the user will have to press enter to continue this makes for a better user experience
+    input("\nPress Enter To continue...")
+    print("_" * 80)
+    print("""You awaken to the sound of an emergency alarm.
+    Red lights flash across your sleeping quarters. The ventilation fans have stopped, and the familiar hum of the
+    colony's life-support equipment is gone.\n\n """)
+    input("\n Press Enter to continue...")
+    print("_" * 80)
+    print(f"{userName}, you are the chief engineer of Ares Colony, humanity's first permanent settlement on Mars. The other six")
+    print("colonists departed three days ago on a geological expedition to a nearby canyon. You stayed behind to")
+    print("maintain the colony's equipment.\n\n")
+    input("\n Press Enter to continue...")
+    print("_" * 80)
+    print("Now something has gone terribly wrong.")
+    print("The colony's central computer displays a terrifying message:\n\n")
+    input("\n Press Enter to continue...")
+    print("_" * 80)
+    print("\n\n")
+    print("ARES COLONY--CRITICAL SYSTEM FAILURE\n")
+    print("MAIN POWER: OFFLINE\n")
+    print("BACKUP POWER: 18%\n")
+    print("OXYGEN GENERATION: OFFLINE\n")
+    print("COMMUNICATIONS: OFFLINE\n")
+    print("COLONY AI: UNRESPONSIVE\n")
+    print("CREW STATUS: UNKNOWN\n")
+    input("\n Press Enter to continue...")
+    print("_" * 80)
+    print("\n\n")
+    # A final message appears on the screen:
+    print("WARNING: Multiple system failures detected. Cause unknown. Estimated survival time: 6 hours.\n")
+    input("\n Press Enter to continue")
+    print("_" * 80)
+    #now let's print out many lines of text with only one print statement.
+    print("""You grab your engineering toolkit and look toward the darkened corridor. 
+    You are alone. 
+    There is no rescue coming unless you can restore communications. 
+    You are the last engineer on Mars. 
+    And the colony's survival depends on what you do next. 
+    """)
 # Now print out the game instructions for our user
-print("""
-Game Directions 
-
-The game consists of 10 scenarios. Each scenario presents a problem and three possible actions: A, B, or C.
-You must make decisions to repair equipment, conserve resources, investigate failures, and restore the colony.
-
-Scoring System
-
-Your decisions will affect your mission score:
-
-+10 points: Excellent decision
-
-+5 points: Acceptable decision
-
--5 points: Poor decision
-
-Your health and the colony's oxygen reserves may also be affected by your decisions.
-Your final score will help determine the outcome of your mission.
-Choose carefully, Engineer. The survival of Ares Colony is in your hands.\n
-""")
+def gameInstructions():
+    print("""
+    Game Directions\n 
+    The game consists of 10 scenarios. Each scenario presents a problem and three possible actions: A, B, or C.
+    You must make decisions to repair equipment, conserve resources, investigate failures, and restore the colony.\n
+    Scoring System\n
+    Your decisions will affect your mission score:\n
+    +10 points: Excellent decision\n
+    +5 points: Acceptable decision\n
+    -5 points: Poor decision\n                                      
+    Your health and the colony's oxygen reserves may also be affected by your decisions.
+    Your final score will help determine the outcome of your mission.
+    Choose carefully, Engineer. The survival of Ares Colony is in your hands.\n
+    """)
+gameInstructions()
+        
 # the user choses the dificulty which only affects the initial stats of health, oxygen, and score
 difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper() 
 print("\n")
@@ -208,88 +210,90 @@ display_statistics(health, oxygen, score)
 input("Press Enter to continue...")
 print("_" * 80)
 #starts Level 1
-print("""\n Level 1: Darkness in the Control Room
+def Level1():
+    print("""\n Level 1: Darkness in the Control Room
 
-Location: Ares Colony — Main Control Room
+        Location: Ares Colony — Main Control Room
 
-The emergency lighting flickers as you enter the control room. The main reactor has shut down, leaving the colony dependent on its rapidly draining backup batteries.
-A diagnostic warning flashes across the central monitor.
- """)
-input("\n Press Enter to continue")
-print("_" * 80)
-print("""\n WARNING: MAIN POWER FAILURE
+        The emergency lighting flickers as you enter the control room. The main reactor has shut down, leaving the colony dependent on its rapidly draining backup batteries.
+        A diagnostic warning flashes across the central monitor.
+        """)
+    input("\n Press Enter to continue")
+    print("_" * 80)
+    print("""\n WARNING: MAIN POWER FAILURE
 
-BACKUP BATTERY: 18%p
+    BACKUP BATTERY: 18%p
 
-LIFE SUPPORT: EMERGENCY MODE """)
-print("""\n The colony's oxygen circulation system is operating at reduced capacity. Every minute without stable power brings the colony closer to disaster.
+    LIFE SUPPORT: EMERGENCY MODE """)
+    print("""\n The colony's oxygen circulation system is operating at reduced capacity. Every minute without stable power brings the colony closer to disaster.
 
-You examine the engineering console. Three possible actions are available.
-""")
+    You examine the engineering console. Three possible actions are available.
+    """)
 
-print(""" What do you do?
+    print(""" What do you do?
 
-A. Inspect the main electrical distribution panel.
+    A. Inspect the main electrical distribution panel.
 
-Examine the electrical system, identify the source of the failure, and isolate any damaged components before attempting repairs.
+    Examine the electrical system, identify the source of the failure, and isolate any damaged components before attempting repairs.
 
-B. Activate the portable emergency generators.
+    B. Activate the portable emergency generators.
 
-Restore temporary power to essential equipment while postponing the investigation of the main reactor failure.
+    Restore temporary power to essential equipment while postponing the investigation of the main reactor failure.
 
-C. Immediately restart the main reactor.
+    C. Immediately restart the main reactor.
 
-Attempt to restore full power without first investigating what caused the shutdown.""")
-# the user makes a choice input is saved and new stats are calculated and results are shown
-controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
-while controlRoomChoice not in ("A", "B", "C"):
-        print("Invalid choice. Please choose A, B, or C ")
-        controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
-input("\n Press Enter to continue")
-print("_" * 80)
-if controlRoomChoice == "A":
-        print("""Excellent Decision
+    Attempt to restore full power without first investigating what caused the shutdown.""")
+    # the user makes a choice input is saved and new stats are calculated and results are shown
+    controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
+    while controlRoomChoice not in ("A", "B", "C"):
+            print("Invalid choice. Please choose A, B, or C ")
+            controlRoomChoice = input("\n Choose A. B. or C. ").strip().upper()
+    input("\n Press Enter to continue")
+    print("_" * 80)
+    if controlRoomChoice == "A":
+            print("""Excellent Decision
 
-    You inspect the electrical distribution panel and discover a damaged power relay. After isolating the faulty circuit,
+        You inspect the electrical distribution panel and discover a damaged power relay. After isolating the faulty circuit,
 
-    you prevent additional electrical damage.
+        you prevent additional electrical damage.
 
-    Your careful investigation takes time, consuming some of the colony's remaining oxygen reserves.\n""")
-        health, oxygen, score = update_stats(health, oxygen, score)
-        display_statistics(health, oxygen, score)
-elif controlRoomChoice == "B":
-        print("""Acceptable Decision
+        Your careful investigation takes time, consuming some of the colony's remaining oxygen reserves.\n""")
+            health, oxygen, score = update_stats(health, oxygen, score)
+            display_statistics(health, oxygen, score)
+    elif controlRoomChoice == "B":
+            print("""Acceptable Decision
 
-You activate the portable emergency generators. Essential systems begin operating again, but fuel reserves are limited.
+    You activate the portable emergency generators. Essential systems begin operating again, but fuel reserves are limited.
 
-Temporary power reduces the immediate danger, although the original electrical failure remains unresolved. """)
-        health, oxygen, score = update_stats(health, oxygen, score)
-        display_statistics(health, oxygen, score)
-elif controlRoomChoice == "C":
-        print(""" Poor Decision
+    Temporary power reduces the immediate danger, although the original electrical failure remains unresolved. """)
+            health, oxygen, score = update_stats(health, oxygen, score)
+            display_statistics(health, oxygen, score)
+    elif controlRoomChoice == "C":
+            print(""" Poor Decision
 
-You initiate an emergency reactor restart without checking the electrical system.
+    You initiate an emergency reactor restart without checking the electrical system.
 
-A damaged relay causes another electrical fault. Sparks erupt from a nearby control panel, and an electrical arc throws you backward.
+    A damaged relay causes another electrical fault. Sparks erupt from a nearby control panel, and an electrical arc throws you backward.
 
-You suffer minor injuries, and the additional power failure accelerates the depletion of the colony's oxygen reserves.""") 
-        health, oxygen, score = update_stats(health, oxygen, score)
-        display_statistics(health, oxygen, score) 
+    You suffer minor injuries, and the additional power failure accelerates the depletion of the colony's oxygen reserves.""") 
+            health, oxygen, score = update_stats(health, oxygen, score)
+            display_statistics(health, oxygen, score) 
 
-input("Press Enter to continue...")
-print("_" * 80)
+    input("Press Enter to continue...")
+    print("_" * 80)
+Level1()   
 #First level is complete
 print("""\nEnd of Darkness in the Control room
 
-The control room falls quiet as you assess the consequences of your decision.
+    The control room falls quiet as you assess the consequences of your decision.
 
-Your engineering console updates your current health, the colony's oxygen reserves, and your mission score.
+    Your engineering console updates your current health, the colony's oxygen reserves, and your mission score.
 
-Mission Status: Scenario 1 of 10 Complete
+    Mission Status: Scenario 1 of 10 Complete
 
-The next emergency awaits.
+    The next emergency awaits.
 
-Next Level: The Oxygen Crisis \n""")
+    Next Level: The Oxygen Crisis \n""")
 
 input("Press Enter to continue...")
 print("_" * 80)
