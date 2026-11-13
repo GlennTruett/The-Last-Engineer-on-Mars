@@ -16,7 +16,10 @@ hoxygen = 50
 hscore = 0
 # creating a current location variable
 currentLocation = "Main Control Room"
-
+userName = "Joe"
+controlRoomChoice = "A"
+difficulty = "Easy"
+batteryPower = 18
 # These are the dictionaries for the rooms in the game
 controlRoom = {
         "name": "Main Control Room",
@@ -82,7 +85,7 @@ rooms = {
 
 #Create a function to display the current statistics of the user
 # This function will take the user's choice of difficulty and assign the appropriate starting stats
-def difficulty_stats(health, oxygen, score):
+def difficulty_stats(health, oxygen, score, difficulty, batteryPower):
 
         if difficulty == "A":
          health = ehealth
@@ -96,29 +99,30 @@ def difficulty_stats(health, oxygen, score):
                 health = hhealth
                 oxygen = hoxygen 
                 score = hscore
-        return health, oxygen, score
+        return health, oxygen, score, difficulty, batteryPower
 # This function takes the first level decision and updates the stats        
-def update_stats(health, oxygen, score):
+def update_stats(health, oxygen, score, difficulty, batteryPower):
 
-    if      controlRoomChoice == "A":
+    if      difficulty == "A":
                            health += 0
                            oxygen -= 5
                            score +=  10
-    elif    controlRoomChoice == "B":
+    elif    difficulty == "B":
                            health += 5
                            oxygen -= 10
                            score += 5
-    elif    controlRoomChoice == "C":
+    elif    difficulty == "C":
                               health -= 15
                               oxygen -= 20
                               score -= 5   
-    return health, oxygen, score
+    return health, oxygen, score, difficulty, batteryPower
 # this function when called will display the stats
-def display_statistics(health, oxygen, score):
+def display_statistics(health, oxygen, score, batteryPower):
     
     print(f"Health: {health}%")
     print(f"Oxygen: {oxygen}%")
-    print(f"Score {score}")   
+    print(f"Score {score}")
+    print(f"Battery Power: {batteryPower}%")
 # Create an adventure sim
 #  First Let's display the title of the sim
 def display_title():
@@ -132,7 +136,7 @@ def display_title():
 display_title()
 # Lets print out the introduction to the sim
 # I will be using \n to create new lines
-def display_introduction():
+def display_introduction(userName):
     print("Introduction: The Red Silence \n\n")
     print("Mars — Sol 247, 03:17 Colony Time \n")
     # The user will now be asked for their name and it will be stored as the variable userName
@@ -177,6 +181,10 @@ def display_introduction():
     You are the last engineer on Mars. 
     And the colony's survival depends on what you do next. 
     """)
+    return userName
+#Now run the introduction
+userName = display_introduction(userName)
+
 # Now print out the game instructions for our user
 def gameInstructions():
     print("""
@@ -191,34 +199,40 @@ def gameInstructions():
     Your health and the colony's oxygen reserves may also be affected by your decisions.
     Your final score will help determine the outcome of your mission.
     Choose carefully, Engineer. The survival of Ares Colony is in your hands.\n
-    """)
+    """) 
 gameInstructions()
+
 # the user choses the dificulty which only affects the initial stats of health, oxygen, and score
-difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper() 
-print("\n")
-while difficulty not in ("A", "B", "C"):
-      print("Invalid difficulty. Please choose A, B, or C ")
-      difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper()  
-#Now show the user the initial stats of Health, Colony Oxygen levels, and the score.
-print(f"\n{userName} your stats are as follows\n")
-health, oxygen, score = difficulty_stats(health, oxygen, score)
-display_statistics(health, oxygen, score)
-input("Press Enter to continue...")
-print("_" * 80)
+def choseDifficulty(health, oxygen, score, difficulty, batteryPower):
+    difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper() 
+    print("\n")
+    while difficulty not in ("A", "B", "C"):
+          print("Invalid difficulty. Please choose A, B, or C ")
+          difficulty = input("What level of difficulty do you choose A. Easy B. Medium. C. Hard ").strip().upper()  
+    #Now show the user the initial stats of Health, Colony Oxygen levels, and the score.
+    print(f"\n{userName} your stats are as follows\n")
+    health, oxygen, score, difficulty, batteryPower = difficulty_stats(health, oxygen, score, difficulty, batteryPower)
+    display_statistics(health, oxygen, score, batteryPower)
+    input("Press Enter to continue...")
+    print("_" * 80)
+    return health, oxygen, score, difficulty, batteryPower
+#now run choseDifficulty
+health, oxygen, score, difficulty, batteryPower = choseDifficulty(health, oxygen, score, difficulty, batteryPower)
+
 #starts Level 1
-def Level1():
+def Level1(controlRoomChoice, health, oxygen, score, difficulty, batteryPower):
     print("""\n Level 1: Darkness in the Control Room
 
         Location: Ares Colony — Main Control Room
 
-        The emergency lighting flickers as you enter the control room. The main reactor has shut down, leaving the colony dependent on its rapidly draining backup batteries.
-        A diagnostic warning flashes across the central monitor.
+        The emergency lighting flickers as you enter the control room. The main reactor has shut down, leaving the colony dependent on\n its rapidly draining backup batteries.
+        \nA diagnostic warning flashes across the central monitor.
         """)
     input("\n Press Enter to continue")
     print("_" * 80)
-    print("""\n WARNING: MAIN POWER FAILURE
+    print(f"""\n WARNING: MAIN POWER FAILURE
 
-    BACKUP BATTERY: 18%p
+    BACKUP BATTERY: {batteryPower}%
 
     LIFE SUPPORT: EMERGENCY MODE """)
     print("""\n The colony's oxygen circulation system is operating at reduced capacity. Every minute without stable power brings the colony closer to disaster.
@@ -247,6 +261,7 @@ def Level1():
     input("\n Press Enter to continue")
     print("_" * 80)
     if controlRoomChoice == "A":
+            batteryPower += 70
             print("""Excellent Decision
 
         You inspect the electrical distribution panel and discover a damaged power relay. After isolating the faulty circuit,
@@ -254,42 +269,38 @@ def Level1():
         you prevent additional electrical damage.
 
         Your careful investigation takes time, consuming some of the colony's remaining oxygen reserves.\n""")
-            health, oxygen, score = update_stats(health, oxygen, score)
-            display_statistics(health, oxygen, score)
+            health, oxygen, score, difficulty, batteryPower = update_stats(health, oxygen, score, difficulty, batteryPower)
+            display_statistics(health, oxygen, score, batteryPower)
     elif controlRoomChoice == "B":
+            batteryPower += 40
             print("""Acceptable Decision
 
     You activate the portable emergency generators. Essential systems begin operating again, but fuel reserves are limited.
 
     Temporary power reduces the immediate danger, although the original electrical failure remains unresolved. """)
-            health, oxygen, score = update_stats(health, oxygen, score)
-            display_statistics(health, oxygen, score)
+            health, oxygen, score, difficulty, batteryPower = update_stats(health, oxygen, score, difficulty, batteryPower)
+            display_statistics(health, oxygen, score, batteryPower)
     elif controlRoomChoice == "C":
-            print(""" Poor Decision
+        batteryPower -= 10
+        print(""" Poor Decision
 
     You initiate an emergency reactor restart without checking the electrical system.
 
     A damaged relay causes another electrical fault. Sparks erupt from a nearby control panel, and an electrical arc throws you backward.
 
     You suffer minor injuries, and the additional power failure accelerates the depletion of the colony's oxygen reserves.""") 
-            health, oxygen, score = update_stats(health, oxygen, score)
-            display_statistics(health, oxygen, score) 
-
-    input("Press Enter to continue...")
-    print("_" * 80)
-Level1()   
+            
+        health, oxygen, score, difficulty, batteryPower = update_stats(health, oxygen, score, difficulty, batteryPower)
+        display_statistics(health, oxygen, score, batteryPower)
+    return health, oxygen, score, difficulty, batteryPower
+health, oxygen, score, difficulty, batteryPower = Level1(controlRoomChoice, health, oxygen, score, difficulty, batteryPower)
 #First level is complete
-print("""\nEnd of Darkness in the Control room
-
-    The control room falls quiet as you assess the consequences of your decision.
-
-    Your engineering console updates your current health, the colony's oxygen reserves, and your mission score.
-
-    Mission Status: Scenario 1 of 10 Complete
-
-    The next emergency awaits.
-
-    Next Level: The Oxygen Crisis \n""")
+print("""\nEnd of Darkness in the Control room\n
+        The control room falls quiet as you assess the consequences of your decision.\n
+        Your engineering console updates your current health, the colony's oxygen reserves, and your mission score.\n
+        Mission Status: Scenario 1 of 10 Complete\n
+        The next emergency awaits.\n
+        Next Level: The Oxygen Crisis \n""")
 
 input("Press Enter to continue...")
 print("_" * 80)
